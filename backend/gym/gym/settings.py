@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'drf_spectacular',
-    
+    'events'
 ]
 
 MIDDLEWARE = [
