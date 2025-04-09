@@ -99,3 +99,38 @@ class EventDateFormTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
+
+class JoinEventApiViewTest(APITestCase):
+    def setUp(self):
+        event_type = EventType.objects.create(name="Powerlifting", description="Powerlifting event")
+        self.room = Room.objects.create(number=101, name="Small Room")
+        coach = Coach.objects.create(firstname="John", lastname="Doe")
+        self.user = get_user_model().objects.create_user(username="testuser", password="testpassword")
+        
+        self.event = Event.objects.create(
+            event_type=event_type,
+            coach=coach,
+            person_limit=1,
+        )
+        self.url = reverse.reverse('join-event', kwargs={'pk': self.event.pk})
+
+    def test_user_can_join_event_with_free_space(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.user, self.event.users.all())
+
+    def test_user_cannot_join_full_event(self):
+        self.client.force_authenticate(user=self.user)
+        self.event.users.add(self.user)
+        new_user = get_user_model().objects.create_user(username='anotheruser', password='password123')
+        self.client.force_authenticate(user=new_user)
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue("error" in response.json())
+
+    def test_unauthenticated_user_cannot_join_event(self):
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 403)
+        

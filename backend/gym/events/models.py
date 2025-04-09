@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-from django.core import validators
+
 
 class Room(models.Model):
     number = models.IntegerField(_("Room number"), primary_key=True)
@@ -41,6 +41,9 @@ class Event(models.Model):
         dates = [str(i) for i in self.dates.all()]
         return f"{self.event_type.name} {dates}"
     
+    def has_free_space(self):
+        return self.users.count() < self.person_limit
+
     class Meta:
         verbose_name_plural = "Events"
 

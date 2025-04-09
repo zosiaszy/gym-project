@@ -4,7 +4,7 @@ info:
   version: 0.0.1
   description: Inżynieria Oprogramowania 2025
 paths:
-  /events:
+  /events/:
     get:
       operationId: events_list
       tags:
@@ -21,6 +21,24 @@ paths:
                 items:
                   $ref: '#/components/schemas/Event'
           description: ''
+  /events/join/{id}:
+    post:
+      operationId: events_join_create
+      description: You not gonna believe it, the view is used to join the event.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - events
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
 components:
   schemas:
     Event:

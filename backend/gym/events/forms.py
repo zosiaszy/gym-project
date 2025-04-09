@@ -1,7 +1,5 @@
 from django import forms
 from .models import EventDate
-from django.utils.timezone import datetime
-from datetime import time
 
 
 class EventDateForm(forms.ModelForm):
@@ -11,6 +9,8 @@ class EventDateForm(forms.ModelForm):
 
 
     def clean(self):
+        """Check if the new date will not overlap with existing dates"""
+
         new_start_time:str = self.cleaned_data["start_time"]
         new_end_time  :str = self.cleaned_data["end_time"]
         other_dates = EventDate.objects.filter(weekday=self.cleaned_data["weekday"])
