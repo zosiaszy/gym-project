@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import React from 'react'
 import Contact from './pages/Contact'
 import About from './pages/About'
+import './App.css';
+
 
 const App = () => {
   return (

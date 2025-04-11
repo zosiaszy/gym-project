@@ -1,0 +1,18 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* App.css */
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: #f5f5f5 !important;
+
+}
+
+.fc {
+  font-size: 15px;
+}
