@@ -26,6 +26,8 @@ class EventSerializer(serializers.ModelSerializer):
     """
 
     dates = EventDateSerializer(many=True)
+    number_of_participants = serializers.IntegerField(source="users.count")
+
     class Meta:
         model = Event
         exclude = ["users"]

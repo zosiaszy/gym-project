@@ -33,10 +33,12 @@ class EventType(models.Model):
 
 class Event(models.Model):
     event_type = models.ForeignKey(EventType, verbose_name=_("Event type"), on_delete=models.SET_NULL, null=True)
-    users = models.ManyToManyField(get_user_model(), verbose_name=_("Attendees"), related_name="attendees")
+    users = models.ManyToManyField(get_user_model(), verbose_name=_("Participants"), related_name="events")
     coach = models.ForeignKey(Coach, on_delete=models.SET_NULL, 
                               null=True, related_name="events")
     person_limit = models.IntegerField(_("Person limit"))
+
+
     def __str__(self) -> str:
         dates = [str(i) for i in self.dates.all()]
         return f"{self.event_type.name} {dates}"
