@@ -5,7 +5,7 @@ import HeroBannerImage from '../assets/images/start.png';
 const HeroBanner = () => (
   <Box
     sx={{
-      mt: { lg: '80px', xs: '30px' },
+      mt: { lg: '20px', xs: '30px' },
       mx: 'auto',
       display: 'flex',
       flexDirection: { xs: 'column', lg: 'row' },

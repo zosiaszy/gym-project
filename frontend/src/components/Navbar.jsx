@@ -47,23 +47,27 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/about"
+            to="/exercises"
             style={{ textDecoration: 'none', color: '#3A1212' }}
           >
-            About
+           
+            Exercises
           </Link>
+           <Link
+            to="/offer"
+            style={{ textDecoration: 'none', color: '#3A1212' }}
+          >
+            Offer
+          </Link>
+         
           <Link
             to="/contact"
             style={{ textDecoration: 'none', color: '#3A1212' }}
           >
             Contact
           </Link>
-          <Link
-            to="/exercises"
-            style={{ textDecoration: 'none', color: '#3A1212' }}
-          >
-            Exercises
-          </Link>
+         
+         
         </Stack>
       </Stack>
 

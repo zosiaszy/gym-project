@@ -14,7 +14,7 @@ const BuyMembership = () => (
       mx: 'auto',
       maxWidth: '1350px',
       minHeight: { xs: '60vh', lg: '60vh' }, 
-      backgroundColor: '##f5f5f5',
+     
       borderRadius: '50px',
       overflow: 'hidden',
        

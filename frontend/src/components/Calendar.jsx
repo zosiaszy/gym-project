@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import plLocale from '@fullcalendar/core/locales/pl';
 
 
@@ -9,11 +9,11 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    // Przykładowe pobieranie danych z backendu
-    fetch('https://your-api-endpoint.com/events') // <-- Zastąp własnym URL!
+
+    fetch('https://your-api-endpoint.com/events') 
       .then(response => response.json())
       .then(data => {
-        // Jeśli potrzebujesz przekształcić dane do formatu używanego przez FullCalendar
+       
         // Sprawdź dokumentację FullCalendar, oczekuje ona np. [{ title, date, ... }]
         setEvents(data);
       })
@@ -24,16 +24,18 @@ const Calendar = () => {
     <Box
       style={{
            maxWidth: '1350px',
-            margin: '80px auto',
+            margin: '20px auto',
             backgroundColor: '#fff',
-            borderRadius: '50px',
             overflow: 'hidden',
             padding: '20px',
       }}
     >
+
+     <Typography
+      fontFamily="Alegreya" fontSize="40px" fontWeight="600" mb={2} color="#232227">Schedule</Typography>
       <FullCalendar
         plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
+        initialView="dayGridWeek"
         events={events}
         height="auto"
         locale={plLocale}

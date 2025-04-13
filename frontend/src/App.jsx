@@ -4,8 +4,9 @@ import  Navbar  from './components/Navbar'
 import Home from './pages/Home'
 import React from 'react'
 import Contact from './pages/Contact'
-import About from './pages/About'
 import './App.css';
+import SignUp from './pages/SignUp'
+import SignIn from './pages/SignIn'
 
 
 const App = () => {
@@ -15,7 +16,10 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/contact' element={<Contact />} />
-      <Route path='/about' element={<About />} />
+   
+      <Route path='/register' element={<SignUp />} />
+
+      <Route path='/login' element={<SignIn />} />
     </Routes>
     </>
   );
