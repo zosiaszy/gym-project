@@ -5,10 +5,9 @@ class EventDateSerializer(serializers.ModelSerializer):
     """
      This serializer should be used only for viewing
     """
-    weekday = serializers.CharField(source="get_weekday_display")
     class Meta:
         model = EventDate
-        fields = "weekday", "start_time", "end_time", "room"
+        fields = "start_time", "end_time", "room"
 
 
     def save(self, **kwargs):

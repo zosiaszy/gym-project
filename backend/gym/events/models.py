@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 
 class Room(models.Model):
@@ -50,21 +51,9 @@ class Event(models.Model):
         verbose_name_plural = "Events"
 
 class EventDate(models.Model):
-
-    WEEKDAY = [ 
-        ('Mon', 'Monday'),
-        ('Tue', 'Tuesday'),
-        ('Wed', 'Wednesday'),
-        ('Thu', 'Thursday'),
-        ('Fri', 'Friday'),
-        ('Sat', 'Saturday'),
-        ('Sun', 'Sunday'),
-    ]
-    
     event = models.ForeignKey(Event, verbose_name=_("Event"), on_delete=models.SET_NULL, related_name="dates", null=True)
-    weekday = models.CharField(_("Week day"), max_length=3, choices=WEEKDAY)
-    start_time = models.TimeField(_("Start time"))
-    end_time = models.TimeField(_("End time"))
+    start_time = models.DateTimeField(_("Start time"))
+    end_time = models.DateTimeField(_("End time"))
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, 
                              null=True, related_name="events")
 
