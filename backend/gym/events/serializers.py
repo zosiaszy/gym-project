@@ -1,22 +1,6 @@
 from .models import Event,EventDate
 from rest_framework import serializers
 
-class EventDateSerializer(serializers.ModelSerializer):
-    """
-     This serializer should be used only for viewing
-    """
-    class Meta:
-        model = EventDate
-        fields = "start_time", "end_time", "room"
-
-
-    def save(self, **kwargs):
-        raise NotImplementedError
-
-    def update(self, instance, validated_data):
-        raise NotImplementedError
-    
-
 
 class EventSerializer(serializers.ModelSerializer):
     """
@@ -24,16 +8,35 @@ class EventSerializer(serializers.ModelSerializer):
     This serializer should be used only for viewing
     """
 
-    dates = EventDateSerializer(many=True)
     number_of_participants = serializers.IntegerField(source="users.count")
 
     class Meta:
         model = Event
         exclude = ["users"]
-        depth = 2
+        depth = 1
 
     def save(self, **kwargs):
         raise NotImplementedError
     
     def update(self, instance, validated_data):
         raise NotImplementedError
+    
+class EventDateSerializer(serializers.ModelSerializer):
+    """
+     This serializer should be used only for viewing
+    """
+
+    event = EventSerializer()
+    class Meta:
+        model = EventDate
+        fields = "event", "start_time", "end_time", "room"
+        depth = 1
+
+
+    def save(self, **kwargs):
+        raise NotImplementedError
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError
+    
+

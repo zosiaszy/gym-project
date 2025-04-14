@@ -1,10 +1,10 @@
 from django.urls import path
 from .models import * 
-from .views import EventListApiView, JoinEventApiView,QuitEventApiView
+from .views import EventDateListApiView, JoinEventApiView,QuitEventApiView
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
-router.register("", EventListApiView, "event")
+router.register("", EventDateListApiView, "event")
 
 
 urlpatterns = [

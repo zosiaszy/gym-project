@@ -3,7 +3,7 @@ from django.utils import timezone
 from rest_framework.test import APIRequestFactory, APITestCase
 from rest_framework import reverse, status
 
-from .views import EventListApiView
+from .views import EventDateListApiView
 from .models import Event, EventType, Coach, Room, EventDate
 from django.contrib.auth import get_user_model
 from datetime import  timedelta
@@ -202,96 +202,100 @@ class EventDateModelTest(TestCase):
 
 
 
-class EventListApiViewTests(APITestCase):
+class EventDateListApiViewTests(APITestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.view = EventListApiView.as_view({'get': 'list'})
         self.url = reverse.reverse('event-list')
         
-        event_type1 = EventType.objects.create(name="Powerlifting", description="Powerlifting event")
-        event_type1.save()
-        self.event_type1 = event_type1
+        self.coach = Coach.objects.create(
+            firstname="Janusz", 
+            lastname="Waligóra"
+        )
 
-        event_type2 = EventType.objects.create(name="Powerlifsssing", description="sssss event")
-        event_type2.save()
-        self.event_type2 = event_type2
+        self.room = Room.objects.create(
+            number=101,
+            name="Small Powerlifting Room"
+        )
 
-        self.room = Room.objects.create(number=101, name="Small Room")
-        self.room.save()
-
-        self.coach = Coach.objects.create(firstname="John", lastname="Doe")
-        self.coach.save()
-
-        self.user = get_user_model().objects.create_user(username="testuser", password="testpassword")
+        self.event_type = EventType.objects.create(
+            name="type",
+            description="type"
+        )
         
         self.event1 = Event.objects.create(
-            event_type=event_type1,
+            event_type=self.event_type,
             coach=self.coach,
-            person_limit=1,
+            person_limit=10
         )
-    
         self.event2 = Event.objects.create(
-            event_type=event_type2,
+            event_type=self.event_type,
             coach=self.coach,
-            person_limit=5,
+            person_limit=15
         )
         
         now = timezone.now()
+        self.current_hour = now.replace(minute=0, second=0, microsecond=0)
         
-        self.current_monday = now - timedelta(days=now.weekday())
-        self.current_sunday = self.current_monday + timedelta(days=6)
-        
-        EventDate.objects.create(
+        self.date1 = EventDate.objects.create(
             event=self.event1,
-            start_time=self.current_monday,
-            end_time=self.current_monday + timedelta(hours=2)
+            room=self.room,
+            start_time=self.current_hour,
+            end_time=self.current_hour + timedelta(hours=1)
         )
-        
-        next_monday = self.current_sunday + timedelta(days=8)
-        EventDate.objects.create(
+        self.date2 = EventDate.objects.create(
             event=self.event2,
-            start_time=next_monday,
-            end_time=next_monday + timedelta(hours=2)
+            room=self.room,
+            start_time=self.current_hour + timedelta(days=1),
+            end_time=self.current_hour + timedelta(days=1, hours=1)
         )
-        
-    def test_coach_filter(self):
-        request = self.factory.get(self.url, {'coach': self.coach.pk})
-        response = self.view(request)
-        
+
+    def test_list_all_event_dates(self):
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
-    def test_from_date_filter(self):
-        from_date = self.current_monday - timedelta(days=1)
-        request = self.factory.get(self.url, {'from': from_date})
-        response = self.view(request)
-        
+    def test_filter_by_coach(self):
+        response = self.client.get(self.url, {'coach': self.coach.pk})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
+        response = self.client.get(self.url, {'coach': 999})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
 
-    def test_to_date_filter(self):
-        to_date = (self.current_monday + timedelta(days=1))
-        request = self.factory.get(self.url, {'to': to_date})
-        response = self.view(request)
+    def test_filter_by_date_range(self):
+        from_date = (self.current_hour - timedelta(hours=1))
+        to_date = (self.current_hour + timedelta(hours=2))
         
+        response = self.client.get(self.url, {
+            'from': from_date,
+            'to': to_date
+        })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
 
-    def test_event_type_filter(self):
-        request = self.factory.get(self.url, {'event_type': self.event_type1.pk})
-        response = self.view(request)
-        
+    def test_filter_by_event_type(self):
+        response = self.client.get(self.url, {'event_type': self.event_type.pk})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 2)
+        other_type = EventType.objects.create(
+            name="Seminar",
+            description="Test seminar"
+        )
+        response = self.client.get(self.url, {'event_type': other_type.pk})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
 
     def test_combined_filters(self):
-        request = self.factory.get(self.url, {
+        response = self.client.get(self.url, {
             'coach': self.coach.pk,
-            'from': (self.current_monday - timedelta(days=1)),
-            'to': (self.current_monday + timedelta(days=1)),
-            'event_type': self.event_type1.pk
+            'event_type': self.event_type.pk,
+            'from': (self.current_hour - timedelta(hours=1)),
+            'to': (self.current_hour + timedelta(hours=2))
         })
-        response = self.view(request)
-        
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
+
+    def test_empty_filters(self):
+        response = self.client.get(self.url, {'coach': ''})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)

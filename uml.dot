@@ -1,7 +1,7 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2025-04-09 20:36
-  // Cli Options: -a --dot -o uml.dot
+  // Created: 2025-04-14 21:50
+  // Cli Options: -a --dot --output uml.dot
 
   fontname = "Roboto"
   fontsize = 8
@@ -629,7 +629,7 @@ digraph model_graph {
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">end_time</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">TimeField</FONT>
+    <FONT FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
   
@@ -637,15 +637,7 @@ digraph model_graph {
     <TR><TD ALIGN="LEFT" BORDER="0">
     <FONT FACE="Roboto">start_time</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">TimeField</FONT>
-    </TD></TR>
-  
-  
-  
-    <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Roboto">weekday</FONT>
-    </TD><TD ALIGN="LEFT">
-    <FONT FACE="Roboto">CharField</FONT>
+    <FONT FACE="Roboto">DateTimeField</FONT>
     </TD></TR>
   
   
@@ -710,7 +702,7 @@ digraph model_graph {
   [label=" coach (events)"] [arrowhead=none, arrowtail=dot, dir=both];
 
   events_models_Event -> django_contrib_auth_models_User
-  [label=" users (attendees)"] [arrowhead=dot arrowtail=dot, dir=both];
+  [label=" users (events)"] [arrowhead=dot arrowtail=dot, dir=both];
 
   events_models_EventDate -> events_models_Event
   [label=" event (dates)"] [arrowhead=none, arrowtail=dot, dir=both];

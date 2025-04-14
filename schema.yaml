@@ -19,12 +19,30 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Event'
+                  $ref: '#/components/schemas/EventDate'
           description: ''
   /events/join/{id}:
     post:
       operationId: events_join_create
       description: You not gonna believe it, the view is used to join the event.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - events
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /events/quit/{id}:
+    post:
+      operationId: events_quit_create
+      description: View opens cd-rom, jk view is used to quit the event.
       parameters:
       - in: path
         name: id
@@ -50,10 +68,8 @@ components:
         id:
           type: integer
           readOnly: true
-        dates:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventDate'
+        number_of_participants:
+          type: integer
         person_limit:
           type: integer
           maximum: 9223372036854775807
@@ -69,33 +85,31 @@ components:
           readOnly: true
       required:
       - coach
-      - dates
       - event_type
       - id
+      - number_of_participants
       - person_limit
     EventDate:
       type: object
       description: This serializer should be used only for viewing
       properties:
-        weekday:
-          type: string
+        event:
+          $ref: '#/components/schemas/Event'
         start_time:
           type: string
-          format: time
+          format: date-time
         end_time:
           type: string
-          format: time
+          format: date-time
         room:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          format: int64
-          title: Room number
-          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Nested'
+          readOnly: true
       required:
       - end_time
+      - event
+      - room
       - start_time
-      - weekday
     Nested:
       type: object
       properties:
