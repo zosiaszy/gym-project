@@ -58,7 +58,37 @@ class EventDate(models.Model):
                              null=True, related_name="events")
 
     def __str__(self) -> str:
-        return f'{self.weekday}'
+                return f'{self.event.event_type} {self.start_time} : {self.end_time}'
+    
+    def clean(self):
+        super().clean() 
+        new_start_time:str = self.start_time
+        new_end_time  :str = self.end_time
+        room_id  :str = self.room.number
+
+        # check if new_start_time is inside another eventdate timeframe
+        starts_inside = EventDate.objects.filter(
+            start_time__lt=new_start_time, 
+            end_time__gt=new_start_time,
+            room_id=room_id
+        )
+        # check if new_end_time is inside another eventdate timeframe
+        ends_inside = EventDate.objects.filter(
+            start_time__lt=new_end_time, 
+            end_time__gt=new_end_time,
+            room_id=room_id
+        )
+        is_duplicate = EventDate.objects.filter(
+            start_time=new_start_time, 
+            end_time=new_end_time,
+            room_id=room_id 
+        )
+
+        if starts_inside or ends_inside or is_duplicate:
+            raise ValidationError(f"This date is overlapping with another date \
+            {starts_inside, ends_inside, is_duplicate})")
+        
+        return            
 
     class Meta:
         verbose_name_plural = "Event Dates"
