@@ -41,8 +41,7 @@ class Event(models.Model):
 
 
     def __str__(self) -> str:
-        dates = [str(i) for i in self.dates.all()]
-        return f"{self.event_type.name} {dates}"
+        return f"{self.event_type.name}, {self.coach}"
     
     def has_free_space(self):
         return self.users.count() < self.person_limit
@@ -58,7 +57,7 @@ class EventDate(models.Model):
                              null=True, related_name="events")
 
     def __str__(self) -> str:
-                return f'{self.event.event_type} {self.start_time} : {self.end_time}'
+                return f'{self.event.event_type} {self.start_time.strftime("%Y %b %d %H:%M")} - {self.end_time.strftime("%Y %b %d %H:%M")}'
     
     def clean(self):
         super().clean() 
