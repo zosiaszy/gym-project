@@ -16,6 +16,7 @@ class GenerateMoreDates(AdminActionForm):
 @admin.register(EventDate)
 class EventDateAdmin(AdminActionFormsMixin, admin.ModelAdmin):
     actions = ["generate_more_dates"]
+    list_filter = ["start_time", "end_time", "event", "room"]
     form = EventDateForm
 
     errors:list[str] = []
@@ -51,10 +52,23 @@ class EventDateAdmin(AdminActionFormsMixin, admin.ModelAdmin):
 
         
 
-admin.site.register(Room)
-admin.site.register(Coach)
-admin.site.register(EventType)
-admin.site.register(Event)
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    model=Room
+
+@admin.register(Coach)
+class CoachAdmin(admin.ModelAdmin):
+    list_filter = ["events"]
+    model=Coach
+
+@admin.register(EventType)
+class EventType(admin.ModelAdmin):
+    model=EventType
+
+@admin.register(Event)
+class Event(admin.ModelAdmin):
+    list_filter = ["event_type", "coach"]
+    model=Event
 
 
 
