@@ -15,7 +15,6 @@ class GenerateMoreDates(AdminActionForm):
 
 @admin.register(EventDate)
 class EventDateAdmin(AdminActionFormsMixin, admin.ModelAdmin):
-    actions = ["generate_more_dates"]
     list_filter = ["start_time", "end_time", "event", "room"]
     form = EventDateForm
 
@@ -25,7 +24,7 @@ class EventDateAdmin(AdminActionFormsMixin, admin.ModelAdmin):
         starting_start_time = obj.start_time
         starting_end_time = obj.end_time
 
-        for i in range(1,n):
+        for i in range(1,n+1):
             evd = EventDate(
                 start_time = starting_start_time+timedelta(days=7*i),
                 end_time = starting_end_time+timedelta(days=7*i),
@@ -47,7 +46,8 @@ class EventDateAdmin(AdminActionFormsMixin, admin.ModelAdmin):
         if not self.errors:
             self.message_user(request, _(f'Good'))
         self.message_user(request, ", ".join(self.errors), level=40)
-
+        
+    actions = [generate_more_dates]
 
 
         

@@ -299,3 +299,59 @@ class EventDateListApiViewTests(APITestCase):
         response = self.client.get(self.url, {'coach': ''})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
+
+class GenerateDatesAdminTests(TestCase):
+
+    def setUp(self):
+        get_user_model().objects.create_superuser(username="admin", password="password")
+        self.client.login(username="admin", password="password")
+        self.coach = Coach.objects.create(
+            firstname="Janusz", 
+            lastname="Waligóra"
+        )
+
+        self.room = Room.objects.create(
+            number=101,
+            name="Small Powerlifting Room"
+        )
+
+        self.event_type = EventType.objects.create(
+            name="type",
+            description="type"
+        )
+        
+        self.event = Event.objects.create(
+            event_type=self.event_type,
+            coach=self.coach,
+            person_limit=10
+        )
+        
+        now = timezone.now()
+        self.current_hour = now.replace(minute=0, second=0, microsecond=0)
+        
+        self.date = EventDate.objects.create(
+            event=self.event,
+            room=self.room,
+            start_time=self.current_hour,
+            end_time=self.current_hour + timedelta(hours=1)
+        )
+
+    def test_generate_more_dates(self):
+        change_url = reverse.reverse("admin:events_eventdate_changelist")
+        data = {
+            "action": "generate_more_dates",
+            "_selected_action": [self.date.pk],
+            "how_many": "1",
+        }
+        response = self.client.post(change_url, data, follow=True)
+        self.assertTrue(EventDate.objects.all().count() == 2)
+    
+    def test_generate_more_dates2(self):
+        change_url = reverse.reverse("admin:events_eventdate_changelist")
+        data = {
+            "action": "generate_more_dates",
+            "_selected_action": [self.date.pk],
+            "how_many": "52",
+        }
+        response = self.client.post(change_url, data, follow=True)
+        self.assertTrue(EventDate.objects.all().count() == 53)
