@@ -11,7 +11,7 @@ const Navbar = () => {
       alignItems="center"
       px="80px"
       py="20px"
-      sx={{ gap: { sm: '20px', xs: '40px' } }}
+      sx={{ gap: { sm: "20px", xs: "40px" } }}
     >
       {/* LEWA STRONA – logo + linki */}
       <Stack direction="row" alignItems="center" spacing={4}>
@@ -19,10 +19,10 @@ const Navbar = () => {
           <Barbell
             size={32}
             style={{
-              width: '48px',
-              height: '48px',
-              margin: '0px 15px -10px 10px',
-              color: '#010d34',
+              width: "48px",
+              height: "48px",
+              margin: "0px 15px -10px 10px",
+              color: "#010d34",
             }}
           />
         </Link>
@@ -31,43 +31,40 @@ const Navbar = () => {
           direction="row"
           spacing={4}
           sx={{
-            fontFamily: 'Alegreya',
-            fontSize: '24px',
-            alignItems: 'flex-end',
+            fontFamily: "Alegreya",
+            fontSize: "24px",
+            alignItems: "flex-end",
           }}
         >
           <Link
             to="/"
             style={{
-              textDecoration: 'none',
-              color: '#3A1212',
-              borderBottom: '3px solid #b48e70',
+              textDecoration: "none",
+              color: "#3A1212",
+              borderBottom: "3px solid #b48e70",
             }}
           >
             Home
           </Link>
           <Link
             to="/exercises"
-            style={{ textDecoration: 'none', color: '#3A1212' }}
+            style={{ textDecoration: "none", color: "#3A1212" }}
           >
-           
             Exercises
           </Link>
-           <Link
+          <Link
             to="/offer"
-            style={{ textDecoration: 'none', color: '#3A1212' }}
+            style={{ textDecoration: "none", color: "#3A1212" }}
           >
             Offer
           </Link>
-         
+
           <Link
             to="/contact"
-            style={{ textDecoration: 'none', color: '#3A1212' }}
+            style={{ textDecoration: "none", color: "#3A1212" }}
           >
             Contact
           </Link>
-         
-         
         </Stack>
       </Stack>
 
@@ -75,15 +72,23 @@ const Navbar = () => {
       <Stack direction="row" spacing={3}>
         <Link
           to="/login"
-           style={{ textDecoration: 'none', color: '#3A1212', fontFamily: 'Alegreya',
-            fontSize: '24px' }}
+          style={{
+            textDecoration: "none",
+            color: "#3A1212",
+            fontFamily: "Alegreya",
+            fontSize: "24px",
+          }}
         >
           Sign In
         </Link>
         <Link
           to="/register"
-           style={{ textDecoration: 'none', color: '#3A1212', fontFamily: 'Alegreya',
-            fontSize: '24px' }}
+          style={{
+            textDecoration: "none",
+            color: "#3A1212",
+            fontFamily: "Alegreya",
+            fontSize: "24px",
+          }}
         >
           Sign Up
         </Link>
