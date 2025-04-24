@@ -184,6 +184,7 @@ const buttonStyle = {
   padding: "12px",
   backgroundColor: "#232227",
   color: "#b48e70",
+  marginTop: "25px",
   fontWeight: "bold",
   "&:hover": {
     backgroundColor: "#3a393f",

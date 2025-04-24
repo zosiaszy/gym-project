@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import { Box, Button, Typography, TextField } from "@mui/material";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -16,26 +14,24 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dane z formularza:", formData);
+    console.log("Dane logowania:", formData);
   };
 
   return (
-    <div style={wrapperStyle}>
-      <div style={boxStyle}>
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fafafa",
+      }}
+    >
+      <Box sx={boxStyle}>
+        <Typography variant="h5" textAlign="center" mb={3} fontWeight="bolder">
+          SIGN IN
+        </Typography>
         <form onSubmit={handleSubmit}>
-          <FormGroup
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <FormGroup
-            label="Last Name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
           <FormGroup
             label="Email"
             name="email"
@@ -50,65 +46,49 @@ const SignIn = () => {
             value={formData.password}
             onChange={handleChange}
           />
-
-          <button type="submit" style={buttonStyle}>
-            Login
-          </button>
+          <Button type="submit" variant="contained" sx={buttonStyle}>
+            SIGN IN
+          </Button>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
 const FormGroup = ({ label, name, type = "text", value, onChange }) => (
-  <div style={{ marginBottom: "15px" }}>
-    <label htmlFor={name}>{label}</label>
-    <input
-      id={name}
+  <Box mb={2}>
+    <TextField
+      fullWidth
+      label={label}
       name={name}
       type={type}
       value={value}
       onChange={onChange}
       required
-      style={inputStyle}
     />
-  </div>
+  </Box>
 );
 
-const wrapperStyle = {
-  minHeight: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
 const boxStyle = {
-  backgroundColor: "#f5f5f5",
-  padding: "30px",
+  backgroundColor: "#fff",
+  padding: "50px",
   borderRadius: "8px",
   boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
   width: "100%",
-  maxWidth: "400px",
-};
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  marginTop: "5px",
-  border: "1px solid #ccc",
-  borderRadius: "4px",
-  backgroundColor: "#fff",
+  maxWidth: "350px",
+  marginTop: "-100px",
+  height: "30vh",
 };
 
 const buttonStyle = {
-  width: "100%",
-  padding: "10px",
-  background: "#232227",
+  padding: "12px",
+  marginTop: "25px",
+  backgroundColor: "#232227",
   color: "#b48e70",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer",
   fontWeight: "bold",
+  "&:hover": {
+    backgroundColor: "#3a393f",
+  },
 };
 
 export default SignIn;
