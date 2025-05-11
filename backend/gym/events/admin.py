@@ -6,9 +6,6 @@ from django_admin_action_forms import AdminActionFormsMixin, AdminActionForm, ac
 from django.utils.translation import gettext as _
 
 
-
-# (?) I don't have clue how to test this shit 
-
 class GenerateMoreDates(AdminActionForm):
     how_many = forms.IntegerField(min_value=1, max_value=52, 
                                   help_text="Selected dates will be duplicated for n consecutive weeks")

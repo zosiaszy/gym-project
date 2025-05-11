@@ -42,7 +42,6 @@ class EventDateListApiView(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 class JoinEventApiView(views.APIView):
     """
-    You not gonna believe it, the view is used to join the event.
     """
 
     permission_classes = [permissions.IsAuthenticated]
@@ -58,7 +57,6 @@ class JoinEventApiView(views.APIView):
     
 class QuitEventApiView(views.APIView):
     """
-    View opens cd-rom, jk view is used to quit the event.
     """
 
     permission_classes = [permissions.IsAuthenticated]
