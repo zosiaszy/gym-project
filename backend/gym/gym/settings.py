@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'drf_spectacular',
-    
+    'django_admin_action_forms',
+    'events'
 ]
 
 MIDDLEWARE = [
