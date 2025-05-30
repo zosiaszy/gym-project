@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: Gym-Project
+  version: 0.0.1
+  description: Inżynieria Oprogramowania 2025
+paths:
+  /events/:
+    get:
+      operationId: events_list
+      tags:
+      - events
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDate'
+          description: ''
+  /events/join/{id}:
+    post:
+      operationId: events_join_create
+      description: You not gonna believe it, the view is used to join the event.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - events
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /events/quit/{id}:
+    post:
+      operationId: events_quit_create
+      description: View opens cd-rom, jk view is used to quit the event.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - events
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    Event:
+      type: object
+      description: |-
+        Serializer for Events, related objects are nested.
+        This serializer should be used only for viewing
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        number_of_participants:
+          type: integer
+        person_limit:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        event_type:
+          allOf:
+          - $ref: '#/components/schemas/Nested'
+          readOnly: true
+        coach:
+          allOf:
+          - $ref: '#/components/schemas/Nested'
+          readOnly: true
+      required:
+      - coach
+      - event_type
+      - id
+      - number_of_participants
+      - person_limit
+    EventDate:
+      type: object
+      description: This serializer should be used only for viewing
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        room:
+          allOf:
+          - $ref: '#/components/schemas/Nested'
+          readOnly: true
+      required:
+      - end_time
+      - event
+      - room
+      - start_time
+    Nested:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Event type name
+          maxLength: 128
+        description:
+          type: string
+          title: Event description
+      required:
+      - description
+      - id
+      - name
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
