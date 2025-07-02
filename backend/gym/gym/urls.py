@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.urls import path
 
 urlpatterns = [
     path("admin/action-forms/", include("django_admin_action_forms.urls")),
     path('admin/', admin.site.urls),
-    path('events/', include("events.urls"))
+    path('events/', include("events.urls")),
+    path('account/', include("account.urls"))
 ]

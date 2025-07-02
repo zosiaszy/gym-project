@@ -33,7 +33,9 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
     'django_admin_action_forms',
-    'events'
+    'events',
+    'account',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +113,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Konfiguracja Rest framework
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
