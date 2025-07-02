@@ -8,11 +8,16 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch("https://your-api-endpoint.com/events")
+    fetch("http://127.0.0.1:8000/events")
       .then((response) => response.json())
       .then((data) => {
-        // Sprawdź dokumentację FullCalendar, oczekuje ona np. [{ title, date, ... }]
-        setEvents(data);
+        const transformed = data.map((item) => ({
+          id: item.event.id,
+          title: `${item.event.event_type.name} (${item.event.coach.firstname} ${item.event.coach.lastname})`,
+          start: item.start_time,
+          end: item.end_time,
+        }));
+        setEvents(transformed);
       })
       .catch((error) => console.error("Błąd ładowania wydarzeń:", error));
   }, []);
@@ -45,5 +50,6 @@ const Calendar = () => {
     </Box>
   );
 };
+
 
 export default Calendar;
