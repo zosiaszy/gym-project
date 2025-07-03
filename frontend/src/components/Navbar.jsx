@@ -46,23 +46,14 @@ const Navbar = () => {
           >
             Home
           </Link>
-          <Link
-            to="/exercises"
-            style={{ textDecoration: "none", color: "#3A1212" }}
-          >
+          <Link to="/exercises" style={{ textDecoration: "none", color: "#3A1212" }}>
             Exercises
           </Link>
-          <Link
-            to="/offer"
-            style={{ textDecoration: "none", color: "#3A1212" }}
-          >
+          <Link to="/offer" style={{ textDecoration: "none", color: "#3A1212" }}>
             Offer
           </Link>
 
-          <Link
-            to="/contact"
-            style={{ textDecoration: "none", color: "#3A1212" }}
-          >
+          <Link to="/contact" style={{ textDecoration: "none", color: "#3A1212" }}>
             Contact
           </Link>
         </Stack>

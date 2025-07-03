@@ -42,12 +42,7 @@ const SignUp = () => {
         }}
       >
         <Box sx={boxStyle}>
-          <Typography
-            variant="h5"
-            textAlign="center"
-            mb={3}
-            fontWeight="bolder"
-          >
+          <Typography variant="h5" textAlign="center" mb={3} fontWeight="bolder">
             SIGN UP
           </Typography>
           <form onSubmit={handleSubmit}>
@@ -92,13 +87,7 @@ const SignUp = () => {
 
         {/* Karta informacyjna */}
         <Box sx={infoBoxStyle}>
-          <Typography
-            variant="h5"
-            textAlign="center"
-            mb={2}
-            color="#b48e70"
-            fontWeight="bolder"
-          >
+          <Typography variant="h5" textAlign="center" mb={2} color="#b48e70" fontWeight="bolder">
             JOIN US
           </Typography>
 
@@ -107,35 +96,22 @@ const SignUp = () => {
             "Our gym is open 24/7 so you can workout anytime you want.",
             "Buy a membership today and get access to top — tier workouts and personal trainer support.",
           ].map((text, index) => (
-            <Box
-              key={index}
-              display="flex"
-              alignItems="flex-start"
-              mb={2}
-              mt={2}
-            >
-              <CaretCircleRight
-                size={32}
-                style={{ marginRight: 10, flexShrink: 0 }}
-              />
+            <Box key={index} display="flex" alignItems="flex-start" mb={2} mt={2}>
+              <CaretCircleRight size={32} style={{ marginRight: 10, flexShrink: 0 }} />
               <Typography variant="body1" lineHeight="1.5">
                 {text}
               </Typography>
             </Box>
           ))}
 
-          <Typography
-            style={{ fontSize: 11, fontStyle: "italic", textAlign: "justify" }}
-          >
-            Your rights in connection with the processing of personal data: The
-            right to request access to personal data; the right to request
-            rectification of personal data; the right to request erasure of
-            personal data; the right to request restriction of processing of
-            personal data, the right to object to the processing of personal
-            data; the right to portability of personal data; the right to
-            withdraw consent to the processing of personal data; and the right
-            to lodge a complaint with the President of the Office for Personal
-            Personal Personal Data Protection.
+          <Typography style={{ fontSize: 11, fontStyle: "italic", textAlign: "justify" }}>
+            Your rights in connection with the processing of personal data: The right to request
+            access to personal data; the right to request rectification of personal data; the right
+            to request erasure of personal data; the right to request restriction of processing of
+            personal data, the right to object to the processing of personal data; the right to
+            portability of personal data; the right to withdraw consent to the processing of
+            personal data; and the right to lodge a complaint with the President of the Office for
+            Personal Personal Personal Data Protection.
           </Typography>
           <Typography mt={1} style={{ fontSize: 14, textAlign: "justify" }}>
             <b>Email:</b> elevate@fitness.com

@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import "./App.css";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import Offer from "./pages/Offer";
 
 const App = () => {
   return (
@@ -15,10 +16,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
-
         <Route path="/register" element={<SignUp />} />
-
         <Route path="/login" element={<SignIn />} />
+        <Route path="/offer" element={<Offer />} />
       </Routes>
     </>
   );

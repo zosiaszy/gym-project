@@ -70,38 +70,18 @@ const Contact = () => (
         >
           CONTACT US
         </Typography>
-        <Typography
-          variant="body1"
-          fontFamily="Alegreya"
-          fontSize="26px"
-          mb={2}
-        >
+        <Typography variant="body1" fontFamily="Alegreya" fontSize="26px" mb={2}>
           If you have any questions, <b> feel free to reach out</b>.
         </Typography>
-        <Typography
-          variant="body1"
-          fontFamily="Alegreya"
-          fontSize="22px"
-          mb={2}
-        >
+        <Typography variant="body1" fontFamily="Alegreya" fontSize="22px" mb={2}>
           <b>Email:</b> elevate@fitness.com
         </Typography>
-        <Typography
-          variant="body1"
-          fontFamily="Alegreya"
-          fontSize="22px"
-          mb={2}
-        >
+        <Typography variant="body1" fontFamily="Alegreya" fontSize="22px" mb={2}>
           <b>Phone:</b> +48 433 222 987
         </Typography>
-        <Typography
-          variant="body1"
-          fontFamily="Alegreya"
-          fontSize="18px"
-          mb={2}
-        >
-          If you want to settle your outstanding payments, please use the
-          account number: <b>14 1000 1063 0000 0021 3371 1952</b>
+        <Typography variant="body1" fontFamily="Alegreya" fontSize="18px" mb={2}>
+          If you want to settle your outstanding payments, please use the account number:{" "}
+          <b>14 1000 1063 0000 0021 3371 1952</b>
         </Typography>
       </Box>
     </Box>

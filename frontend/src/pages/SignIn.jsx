@@ -82,7 +82,6 @@ const boxStyle = {
 
 const buttonStyle = {
   padding: "12px",
-  marginTop: "25px",
   backgroundColor: "#232227",
   color: "#b48e70",
   fontWeight: "bold",
