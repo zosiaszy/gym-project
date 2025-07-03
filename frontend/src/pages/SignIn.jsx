@@ -28,7 +28,7 @@ const SignIn = () => {
       }}
     >
       <Box sx={boxStyle}>
-        <Typography variant="h5" textAlign="center" mb={3} fontWeight="bolder">
+        <Typography textAlign="center" mb={3} fontWeight="bolder">
           SIGN IN
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -75,13 +75,14 @@ const boxStyle = {
   borderRadius: "8px",
   boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
   width: "100%",
-  maxWidth: "350px",
+  maxWidth: "400px",
   marginTop: "-100px",
   height: "30vh",
 };
 
 const buttonStyle = {
   padding: "12px",
+  width: "400px",
   backgroundColor: "#232227",
   color: "#b48e70",
   fontWeight: "bold",
