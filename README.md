@@ -13,5 +13,8 @@ Or just run build.ps1
 ## Run  
     > python <manage.py path> runserver
 
+## Docker setup:  
+- Create .env file
+- docker-compose up --build
 
  
