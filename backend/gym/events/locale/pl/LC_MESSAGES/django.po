@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-03 18:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: plMIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\events\admin.py:44
+msgid "Good"
+msgstr "Poprawnie"
+
+#: .\events\apps.py:7
+#, fuzzy
+#| msgid "Event"
+msgid "events"
+msgstr "Wydarzenia"
+
+#: .\events\models.py:8
+msgid "Room number"
+msgstr "Numer pokoju"
+
+#: .\events\models.py:9
+msgid "Verbose room name"
+msgstr "Nazwa pokoju"
+
+#: .\events\models.py:10
+msgid "For ex. 'small powerlifting room"
+msgstr "Na przykłd 'Mały pokój do trójboju siłowego'"
+
+#: .\events\models.py:14
+msgid "Room"
+msgstr "Pokój"
+
+#: .\events\models.py:15
+msgid "Rooms"
+msgstr "Pokoje"
+
+#: .\events\models.py:18
+msgid "Firstname "
+msgstr "Imię "
+
+#: .\events\models.py:19
+msgid "Lastname"
+msgstr "Nazwisko"
+
+#: .\events\models.py:22 .\events\models.py:25
+msgid "Coach"
+msgstr "Trener"
+
+#: .\events\models.py:26
+msgid "Coaches"
+msgstr "Trenerzy"
+
+#: .\events\models.py:30
+msgid "Event type name"
+msgstr "Nazwa typu wydarzenia"
+
+#: .\events\models.py:31
+msgid "Event description"
+msgstr "Opis wydarzenia"
+
+#: .\events\models.py:37
+#, fuzzy
+#| msgid "Event type"
+msgid "Event Types"
+msgstr "Rodzaj wydarzenia"
+
+#: .\events\models.py:38
+#, fuzzy
+#| msgid "Event type"
+msgid "Event Type"
+msgstr "Rodzaje wydarzeń"
+
+#: .\events\models.py:41
+msgid "Event type"
+msgstr "Rodzaj wydarzenia"
+
+#: .\events\models.py:42
+msgid "Participants"
+msgstr "Uczestnicy"
+
+#: .\events\models.py:45
+msgid "Person limit"
+msgstr "Limit uczestników"
+
+#: .\events\models.py:55
+#, fuzzy
+#| msgid "Event"
+msgid "Events"
+msgstr "Wydarzenia"
+
+#: .\events\models.py:56 .\events\models.py:59
+msgid "Event"
+msgstr "Wydarzenie"
+
+#: .\events\models.py:60
+msgid "Start time"
+msgstr "Początek"
+
+#: .\events\models.py:61
+msgid "End time"
+msgstr "Koniec"
+
+#: .\events\models.py:99
+#, fuzzy
+#| msgid "Event type"
+msgid "Event Dates"
+msgstr "Rodzaje wydarzeń"
+
+#: .\events\models.py:100
+#, fuzzy
+#| msgid "Event type"
+msgid "Event Date"
+msgstr "Rodzaj wydarzenia"

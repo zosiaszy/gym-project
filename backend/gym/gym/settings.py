@@ -46,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'gym.urls'
@@ -96,14 +97,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'pl'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
-
+LANGUAGES = [
+   ('en', ('English')),
+   ('pl', ('Polski')),
+]
 STATIC_URL = 'static/'
 
 STATIC_DIR = BASE_DIR / 'staticfiles'

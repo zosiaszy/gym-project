@@ -2,6 +2,7 @@ from django.urls import path
 from .models import * 
 from .views import EventDateListApiView, JoinEventApiView,QuitEventApiView
 from rest_framework.routers import SimpleRouter
+from django.contrib import admin
 
 router = SimpleRouter()
 router.register("", EventDateListApiView, "event")

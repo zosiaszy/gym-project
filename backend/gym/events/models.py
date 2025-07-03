@@ -7,19 +7,23 @@ from django.core.exceptions import ValidationError
 class Room(models.Model):
     number = models.IntegerField(_("Room number"), primary_key=True)
     name = models.CharField(_("Verbose room name"), max_length=128, 
-                            help_text="For ex. 'small powerlifting room")
+                            help_text=_("For ex. 'small powerlifting room"))
     def __str__(self) -> str:
         return f"{self.number} : {self.name}"
+    class Meta:
+        verbose_name = _("Room")
+        verbose_name_plural =_("Rooms")
 
 class Coach(models.Model):
     firstname = models.CharField(_("Firstname "), max_length=50)
     lastname = models.CharField(_("Lastname"), max_length=50)
 
     def __str__(self) -> str:
-        return f"Coach {self.firstname} {self.lastname}"
+        return f"{_("Coach")} {self.firstname} {self.lastname}"
     
     class Meta:
-        verbose_name_plural = "Coaches"
+        verbose_name = _("Coach")
+        verbose_name_plural =_("Coaches")
 
 
 class EventType(models.Model):
@@ -30,7 +34,8 @@ class EventType(models.Model):
         return self.name
     
     class Meta:
-        verbose_name_plural = "Event Types"
+        verbose_name_plural = _("Event Types")
+        verbose_name = _("Event Type")
 
 class Event(models.Model):
     event_type = models.ForeignKey(EventType, verbose_name=_("Event type"), on_delete=models.SET_NULL, null=True)
@@ -47,7 +52,8 @@ class Event(models.Model):
         return self.users.count() < self.person_limit
 
     class Meta:
-        verbose_name_plural = "Events"
+        verbose_name_plural = _("Events")
+        verbose_name = _("Event")
 
 class EventDate(models.Model):
     event = models.ForeignKey(Event, verbose_name=_("Event"), on_delete=models.SET_NULL, related_name="dates", null=True)
@@ -90,4 +96,5 @@ class EventDate(models.Model):
         return            
 
     class Meta:
-        verbose_name_plural = "Event Dates"
+        verbose_name_plural = _("Event Dates")
+        verbose_name = _("Event Date")
