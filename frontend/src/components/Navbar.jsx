@@ -13,7 +13,6 @@ const Navbar = () => {
       py="20px"
       sx={{ gap: { sm: "20px", xs: "40px" } }}
     >
-      {/* LEWA STRONA – logo + linki */}
       <Stack direction="row" alignItems="center" spacing={4}>
         <Link to="/">
           <Barbell
@@ -46,9 +45,6 @@ const Navbar = () => {
           >
             Home
           </Link>
-          <Link to="/exercises" style={{ textDecoration: "none", color: "#3A1212" }}>
-            Exercises
-          </Link>
           <Link to="/offer" style={{ textDecoration: "none", color: "#3A1212" }}>
             Offer
           </Link>
@@ -59,7 +55,6 @@ const Navbar = () => {
         </Stack>
       </Stack>
 
-      {/* PRAWA STRONA – Sign In / Sign Up */}
       <Stack direction="row" spacing={3}>
         <Link
           to="/login"
