@@ -3,6 +3,7 @@ import { Stack, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Barbell } from "phosphor-react";
 
+
 const Navbar = () => {
   return (
     <Stack
@@ -51,6 +52,9 @@ const Navbar = () => {
 
           <Link to="/contact" style={{ textDecoration: "none", color: "#3A1212" }}>
             Contact
+          </Link>
+          <Link to="/calendar" style={{ textDecoration: "none", color: "#3A1212" }}>
+            Calendar
           </Link>
         </Stack>
       </Stack>

@@ -11,7 +11,6 @@ const Calendar = () => {
     fetch("https://your-api-endpoint.com/events")
       .then((response) => response.json())
       .then((data) => {
-        // Sprawdź dokumentację FullCalendar, oczekuje ona np. [{ title, date, ... }]
         setEvents(data);
       })
       .catch((error) => console.error("Błąd ładowania wydarzeń:", error));
@@ -28,12 +27,13 @@ const Calendar = () => {
       }}
     >
       <Typography fontFamily="Alegreya" fontSize="40px" fontWeight="600" mb={2} color="#232227">
-        Schedule
+        Calendar
       </Typography>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridWeek"
         events={events}
+        id="calendar"
         height="auto"
         locale={plLocale}
         headerToolbar={{

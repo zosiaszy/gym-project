@@ -27,7 +27,7 @@ const Offer = () => {
             <div>
               <span>See more benefits ↓</span>
             </div>
-            <button className="btn">Join us</button>
+            <button className="btn join-btn">Join us</button>
           </div>
         ))}
       </div>

@@ -59,7 +59,7 @@ const HeroBanner = () => (
 
       <Stack>
         <a
-          href="exercises"
+          href="offer"
           style={{
             marginTop: "45px",
             textDecoration: "none",
