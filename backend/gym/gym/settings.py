@@ -17,9 +17,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'RVi74mkII8gI0DC2T6Vi6bFUa'
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -77,7 +78,16 @@ if DEBUG:
         }
     }
 else:
-    raise NotImplementedError("Brak zdefiniowanej konfiguracji baz dla produkcji")
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', 5432),
+    }
+}
 
 
 
@@ -108,13 +118,12 @@ LANGUAGES = [
    ('en', ('English')),
    ('pl', ('Polski')),
 ]
-STATIC_URL = 'static/'
 
-STATIC_DIR = BASE_DIR / 'staticfiles'
+STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
 # Konfiguracja Rest framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

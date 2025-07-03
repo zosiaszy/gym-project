@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      target: backend
+    
+    working_dir: /backend/gym
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    command: gunicorn gym.wsgi:application gunicorn --bind 0.0.0.0:8000 --log-level debug
+
+    expose:
+      - 8000
+    depends_on:
+      - db
+
+  nginx:
+    build:
+      context: .
+      target: production
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: prod
+      POSTGRES_USER: gym
+      POSTGRES_PASSWORD: gym
+    # Potem do tego usiądę
+
+volumes:
+  postgres_data:

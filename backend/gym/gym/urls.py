@@ -24,8 +24,8 @@ admin.site.site_header = _('Gym management app')
 admin.site.site_title = _('Gym management app')
 
 urlpatterns = [
-    path("admin/action-forms/", include("django_admin_action_forms.urls")),
-    path('admin/', admin.site.urls),
-    path('events/', include("events.urls")),
-    path('account/', include("account.urls"))
+    path("api/admin/action-forms/", include("django_admin_action_forms.urls")),
+    path('api/admin/', admin.site.urls),
+    path('api/events/', include("events.urls")),
+    path('api/account/', include("account.urls"))
 ]
