@@ -10,6 +10,7 @@ gunicorn==23.0.0
 inflection==0.5.1
 jsonschema==3.2.0
 packaging==25.0
+psycopg==3.2.9
 pydotplus==2.0.2
 pyparsing==3.2.3
 pyrsistent==0.20.0
@@ -18,5 +19,6 @@ setuptools==78.0.2
 six==1.17.0
 spectacular==0.4.0
 sqlparse==0.5.3
+typing_extensions==4.14.0
 tzdata==2025.2
 uritemplate==4.1.1
