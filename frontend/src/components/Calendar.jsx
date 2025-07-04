@@ -15,12 +15,13 @@ const Calendar = () => {
       })
       .then((data) => {
         const formattedEvents = data.map((event) => ({
+          id: event.id,
           title: event.event.event_type.name,
           start: event.start_time,
           end: event.end_time,
           extendedProps: {
-            description: event.event.event_type.description,
             coach: `${event.event.coach.firstname} ${event.event.coach.lastname}`,
+            description: event.event.event_type.description,
             room: event.room.name,
           },
         }));
@@ -35,7 +36,6 @@ const Calendar = () => {
         maxWidth: "1350px",
         margin: "20px auto",
         backgroundColor: "#fff",
-        overflow: "hidden",
         padding: "20px",
       }}
     >
@@ -46,32 +46,61 @@ const Calendar = () => {
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events}
-        id="calendar"
-        height="auto"
         locale={plLocale}
+        height="auto"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
           right: "dayGridMonth,dayGridWeek",
         }}
         eventContent={(arg) => {
-          const { description, coach, room } = arg.event.extendedProps || {};
-          console.log("DEBUG event props:", arg.event); // <-- Sprawdź w konsoli
+          const { event, timeText } = arg;
           return (
             <Tooltip
               title={
-                <Box sx={{ p: 1 }}>
-                  <div><strong>Trener:</strong> {coach}</div>
-                  <div><strong>Opis:</strong> {description}</div>
-                  <div><strong>Sala:</strong> {room}</div>
+                <Box
+                  sx={{
+                    color: "white",
+                    p: 2,
+                    borderRadius: 2,
+                    fontSize: "16px",
+                    lineHeight: 1.6,
+                    maxWidth: "250px",
+                  }}
+                >
+                  <div>
+                    <strong>Trener:</strong> {event.extendedProps.coach}
+                  </div>
+                  <div>
+                    <strong>Godzina:</strong> {timeText}
+                  </div>
+                  <div>
+                    <strong>Sala:</strong> {event.extendedProps.room}
+                  </div>
+                  <div>
+                    <strong>Opis:</strong> {event.extendedProps.description}
+                  </div>
                 </Box>
               }
               arrow
-              placement="top"
             >
-              <div>
-                <b>{arg.timeText}</b> <i>{arg.event.title}</i>
-              </div>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                  width: "100%",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                  color: "#1e2a78",
+                  padding: "4px",
+                }}
+              >
+                <div>{timeText}</div>
+                <div>{event.title}</div>
+              </Box>
             </Tooltip>
           );
         }}
