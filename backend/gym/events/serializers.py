@@ -29,7 +29,7 @@ class EventDateSerializer(serializers.ModelSerializer):
     event = EventSerializer()
     class Meta:
         model = EventDate
-        fields = "id", "event", "start_time", "end_time", "room"
+        fields = "event", "start_time", "end_time", "room"
         depth = 1
 
 
