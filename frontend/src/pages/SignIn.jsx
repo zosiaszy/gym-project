@@ -15,23 +15,21 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/api/account/login", { // przykladowy 
+    fetch("/api/account/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Błąd logowania");
+        if (!res.ok) throw new Error("Something went wrong...");
         return res.json();
       })
       .then((data) => {
-        console.log("Zalogowano:", data);
         localStorage.setItem("token", data.token);
-        alert("Zalogowano pomyślnie!");
+        alert("Logged in successfully!");
       })
       .catch((err) => {
-        console.error("Błąd:", err);
-        alert("Nieprawidłowy email lub hasło.");
+        alert("Incorrect email or password...");
       });
   };
 
