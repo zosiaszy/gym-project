@@ -18,7 +18,39 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dane z formularza:", formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    fetch("/api/account/register/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: `${formData.firstName.toLowerCase()}${formData.lastName.toLowerCase()}`,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((data) => {
+            throw new Error(data?.email?.[0] || data?.username?.[0] || "Błąd rejestracji");
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+        alert("Registration successful!");
+      })
+      .catch(async (err) => {
+        const errorText = await err?.response?.text?.();
+        alert("Registration failed: " + (errorText || err.message));
+      });
   };
 
   return (
@@ -85,7 +117,6 @@ const SignUp = () => {
           </form>
         </Box>
 
-        {/* Karta informacyjna */}
         <Box sx={infoBoxStyle}>
           <Typography variant="h5" textAlign="center" mb={2} color="#b48e70" fontWeight="bolder">
             JOIN US
@@ -111,7 +142,7 @@ const SignUp = () => {
             personal data, the right to object to the processing of personal data; the right to
             portability of personal data; the right to withdraw consent to the processing of
             personal data; and the right to lodge a complaint with the President of the Office for
-            Personal Personal Personal Data Protection.
+            Personal Data Protection.
           </Typography>
           <Typography mt={1} style={{ fontSize: 14, textAlign: "justify" }}>
             <b>Email:</b> elevate@fitness.com

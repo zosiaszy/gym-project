@@ -3,7 +3,7 @@ import { Box, Button, Typography, TextField } from "@mui/material";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -14,7 +14,25 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dane logowania:", formData);
+
+    fetch("http://localhost:8000/api/account/login", { // przykladowy 
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Błąd logowania");
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Zalogowano:", data);
+        localStorage.setItem("token", data.token);
+        alert("Zalogowano pomyślnie!");
+      })
+      .catch((err) => {
+        console.error("Błąd:", err);
+        alert("Nieprawidłowy email lub hasło.");
+      });
   };
 
   return (
@@ -33,10 +51,10 @@ const SignIn = () => {
         </Typography>
         <form onSubmit={handleSubmit}>
           <FormGroup
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
+            label="Username"
+            name="username"
+            type="username"
+            value={formData.username}
             onChange={handleChange}
           />
           <FormGroup
