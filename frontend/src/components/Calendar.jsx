@@ -8,17 +8,26 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch("https://your-api-endpoint.com/events")
-      .then((response) => response.json())
-      .then((data) => {
-        setEvents(data);
+    fetch("/api/events/")
+      .then((response) => {
+        if (!response.ok) throw new Error("Błąd ładowania wydarzeń");
+        return response.json();
       })
-      .catch((error) => console.error("Błąd ładowania wydarzeń:", error));
+      .then((data) => {
+        const formattedEvents = data.map((event) => ({
+          title: event.event.event_type.name,
+          start: event.start_time,
+          end: event.end_time,
+          id: event.id,
+        }));
+        setEvents(formattedEvents);
+      })
+      .catch((error) => console.error("Błąd:", error.message));
   }, []);
 
   return (
     <Box
-      style={{
+      sx={{
         maxWidth: "1350px",
         margin: "20px auto",
         backgroundColor: "#fff",
@@ -31,7 +40,7 @@ const Calendar = () => {
       </Typography>
       <FullCalendar
         plugins={[dayGridPlugin]}
-        initialView="dayGridWeek"
+        initialView="dayGridMonth"
         events={events}
         id="calendar"
         height="auto"
@@ -39,7 +48,7 @@ const Calendar = () => {
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth",
+          right: "dayGridMonth,dayGridWeek",
         }}
       />
     </Box>
