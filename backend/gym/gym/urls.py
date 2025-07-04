@@ -27,5 +27,6 @@ urlpatterns = [
     path("api/admin/action-forms/", include("django_admin_action_forms.urls")),
     path('api/admin/', admin.site.urls),
     path('api/events/', include("events.urls")),
-    path('api/account/', include("account.urls"))
+    path('api/account/', include("account.urls")),
+    path('api/offers/', include('offers.urls'))
 ]
