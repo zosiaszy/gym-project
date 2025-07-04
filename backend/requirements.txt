@@ -1,6 +1,6 @@
 asgiref==3.8.1
 attrs==25.3.0
-Django==5.1.7
+Django>=5.1.10
 django-admin-action-forms==2.0.0
 django-extensions==3.2.3
 django-filter==25.1
@@ -15,7 +15,7 @@ pydotplus==2.0.2
 pyparsing==3.2.3
 pyrsistent==0.20.0
 PyYAML==6.0.2
-setuptools==78.0.2
+setuptools>=78.1.1
 six==1.17.0
 spectacular==0.4.0
 sqlparse==0.5.3
