@@ -8,6 +8,8 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
+from offers.models import Order
+from offers.serializers import OrderSerializer
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -36,3 +38,10 @@ class UserRetrieveView(APIView):
     def get(self, request: Request) -> Response:
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+class OrderHistoryAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        orders = Order.objects.filter(user=request.user).order_by('-start_date')
+        return Response(OrderSerializer(orders, many=True).data)

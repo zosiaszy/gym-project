@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django_admin_action_forms',
     'events',
     'account',
+    'offers',
     'rest_framework.authtoken',
 ]
 
