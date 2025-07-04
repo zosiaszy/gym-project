@@ -4,7 +4,7 @@ from rest_framework import viewsets,mixins,views, permissions
 from rest_framework.response import Response
 from .serializers import EventSerializer,EventDateSerializer
 from .models import EventDate,Event
-from django.shortcuts import get_object_or_404
+from rest_framework.generics import get_object_or_404
 from datetime import timedelta
 from django.utils import timezone
 
