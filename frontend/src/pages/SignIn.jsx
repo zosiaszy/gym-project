@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // <- Dodany import
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,7 +17,23 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dane logowania:", formData);
+
+    fetch("/api/account/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Something went wrong...");
+        return res.json();
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+        navigate("/offer"); // <- Przekierowanie po zalogowaniu
+      })
+      .catch(() => {
+        alert("Incorrect email or password...");
+      });
   };
 
   return (
@@ -33,10 +52,10 @@ const SignIn = () => {
         </Typography>
         <form onSubmit={handleSubmit}>
           <FormGroup
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
+            label="Username"
+            name="username"
+            type="text"
+            value={formData.username}
             onChange={handleChange}
           />
           <FormGroup
