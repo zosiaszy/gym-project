@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // <- Dodany import
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,9 +29,9 @@ const SignIn = () => {
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
-        alert("Logged in successfully!");
+        navigate("/offer"); // <- Przekierowanie po zalogowaniu
       })
-      .catch((err) => {
+      .catch(() => {
         alert("Incorrect email or password...");
       });
   };
@@ -51,7 +54,7 @@ const SignIn = () => {
           <FormGroup
             label="Username"
             name="username"
-            type="username"
+            type="text"
             value={formData.username}
             onChange={handleChange}
           />
