@@ -5,8 +5,6 @@ services:
       target: backend
     
     working_dir: /backend/gym
-    volumes:
-      - ./backend:/app
     env_file:
       - ./backend/.env
     command: >
