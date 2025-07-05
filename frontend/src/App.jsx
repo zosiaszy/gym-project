@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Offer from "./pages/Offer";
 import Calendar from "./components/Calendar";
+import OrderHistory from "./components/OrderHistory";
 
 const App = () => {
   return (
@@ -20,7 +21,8 @@ const App = () => {
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/offer" element={<Offer />} />
-         <Route path="/calendar" element={<Calendar />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/orders" element={<OrderHistory />} />
       </Routes>
     </>
   );

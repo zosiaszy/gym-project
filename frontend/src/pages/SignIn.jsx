@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // <- Dodany import
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const SignIn = () => {
   });
 
   const navigate = useNavigate();
+  const { login } = useAuth(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,10 +31,11 @@ const SignIn = () => {
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
-        navigate("/offer"); // <- Przekierowanie po zalogowaniu
+        login(); 
+        navigate("/offer");
       })
       .catch(() => {
-        alert("Incorrect email or password...");
+        alert("Incorrect username or password...");
       });
   };
 

@@ -1,10 +1,13 @@
 import React from "react";
-import { Stack, Box, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Barbell } from "phosphor-react";
-
+import UserMenu from "./userMenu";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <Stack
       direction="row"
@@ -49,7 +52,6 @@ const Navbar = () => {
           <Link to="/offer" style={{ textDecoration: "none", color: "#3A1212" }}>
             Offer
           </Link>
-
           <Link to="/contact" style={{ textDecoration: "none", color: "#3A1212" }}>
             Contact
           </Link>
@@ -59,29 +61,35 @@ const Navbar = () => {
         </Stack>
       </Stack>
 
-      <Stack direction="row" spacing={3}>
-        <Link
-          to="/login"
-          style={{
-            textDecoration: "none",
-            color: "#3A1212",
-            fontFamily: "Alegreya",
-            fontSize: "24px",
-          }}
-        >
-          Sign In
-        </Link>
-        <Link
-          to="/register"
-          style={{
-            textDecoration: "none",
-            color: "#3A1212",
-            fontFamily: "Alegreya",
-            fontSize: "24px",
-          }}
-        >
-          Sign Up
-        </Link>
+      <Stack direction="row" spacing={3} alignItems="center">
+        {isLoggedIn ? (
+          <UserMenu />
+        ) : (
+          <>
+            <Link
+              to="/login"
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+                fontFamily: "Alegreya",
+                fontSize: "24px",
+              }}
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/register"
+              style={{
+                textDecoration: "none",
+                color: "#3A1212",
+                fontFamily: "Alegreya",
+                fontSize: "24px",
+              }}
+            >
+              Sign Up
+            </Link>
+          </>
+        )}
       </Stack>
     </Stack>
   );
