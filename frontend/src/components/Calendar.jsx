@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { Box, Typography, Tooltip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import plLocale from "@fullcalendar/core/locales/pl";
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [feedback, setFeedback] = useState("");
+
+ 
+  const getToken = () => localStorage.getItem("token");
 
   useEffect(() => {
     fetch("/api/events/")
@@ -23,12 +38,67 @@ const Calendar = () => {
             coach: `${event.event.coach.firstname} ${event.event.coach.lastname}`,
             description: event.event.event_type.description,
             room: event.room.name,
+            eventId: event.event.id,
           },
         }));
         setEvents(formattedEvents);
       })
       .catch((error) => console.error("Błąd:", error.message));
   }, []);
+
+  const handleEventClick = (clickInfo) => {
+    setSelectedEvent(clickInfo.event);
+    setFeedback("");
+    setDialogOpen(true);
+    console.log("🆔 eventId:", clickInfo.event.extendedProps.eventId);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+    setFeedback("");
+  };
+
+  const handleJoin = () => {
+    const eventId = selectedEvent?.extendedProps?.eventId;
+    if (!eventId) return setFeedback("❌ Nie można zapisać – brak ID wydarzenia.");
+
+    fetch(`/api/events/join/${eventId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${getToken()}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Nie udało się zapisać.");
+        setFeedback("✅ Zapisano na wydarzenie!");
+      })
+      .catch((err) => {
+        console.error("❌ Błąd zapisu:", err);
+        setFeedback("❌ Błąd zapisu na wydarzenie.");
+      });
+  };
+
+  const handleQuit = () => {
+    const eventId = selectedEvent?.extendedProps?.eventId;
+    if (!eventId) return setFeedback("❌ Nie można wypisać – brak ID wydarzenia.");
+
+    fetch(`/api/events/quit/${eventId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${getToken()}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Nie udało się wypisać.");
+        setFeedback("✅ Wypisano z wydarzenia.");
+      })
+      .catch((err) => {
+        console.error("❌ Błąd wypisania:", err);
+        setFeedback("❌ Błąd wypisania z wydarzenia.");
+      });
+  };
 
   return (
     <Box
@@ -42,6 +112,7 @@ const Calendar = () => {
       <Typography fontFamily="Alegreya" fontSize="40px" fontWeight="600" mb={2} color="#232227">
         Calendar
       </Typography>
+
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
@@ -104,7 +175,41 @@ const Calendar = () => {
             </Tooltip>
           );
         }}
+        eventClick={handleEventClick}
       />
+
+      <Dialog open={dialogOpen} onClose={handleClose}>
+        <DialogTitle>{selectedEvent?.title}</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" gutterBottom>
+            <strong>Trener:</strong> {selectedEvent?.extendedProps?.coach}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            <strong>Sala:</strong> {selectedEvent?.extendedProps?.room}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            <strong>Opis:</strong> {selectedEvent?.extendedProps?.description}
+          </Typography>
+          {feedback && (
+            <Typography
+              variant="subtitle2"
+              color={feedback.includes("✅") ? "success.main" : "error.main"}
+              sx={{ mt: 1 }}
+            >
+              {feedback}
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleJoin} color="primary">
+            Zapisz się
+          </Button>
+          <Button onClick={handleQuit} color="error">
+            Wypisz się
+          </Button>
+          <Button onClick={handleClose}>Zamknij</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
